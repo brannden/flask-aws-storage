@@ -1,5 +1,7 @@
 import boto3
 
+from botocore.client import Config
+
 def upload_file(file_name, bucket):
     object_name = file_name
     s3_client = boto3.client('s3')
@@ -18,7 +20,7 @@ def list_files(bucket):
     return contents
 
 def show_image(bucket):
-    s3_client = boto3.client('s3')
+    s3_client = boto3.client('s3', config=Config(signature_version='s3v4'))
     # location = boto3.client('s3').get_bucket_location(Bucket=bucket)['LocationConstraint']
     public_urls = []
     try:
